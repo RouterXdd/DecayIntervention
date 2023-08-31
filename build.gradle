@@ -32,6 +32,7 @@ allprojects{
 dependencies{
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    implementation "com.github.jojofr1:MultiCrafterLib:v1.7.2"
 
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 }
