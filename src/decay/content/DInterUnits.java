@@ -34,8 +34,8 @@ public class DInterUnits {
  public static void load(){
     //air time units
     hour = new UnitType("hour"){{
-    health = 185;
-    speed = 2.65f;
+    health = 160;
+    speed = 2.2f;
     hitSize = 8f;
     drag = 0.03f;
     flying = true;
@@ -53,7 +53,7 @@ public class DInterUnits {
             y = 1.8f;
             top = false;
             bullet = new ContinuousFlameBulletType(){{
-                damage = 4.4f;
+                damage = 3.6f;
                 length = 0f;
                 speed = 0.3f;
                 lifetime = 178f;
@@ -738,7 +738,7 @@ public class DInterUnits {
          }});
          weapons.add(new Weapon("decay-inter-decay-weapon"){{
              reload = 42f;
-             x = 4f;
+             x = 3f;
              y = 3f;
              top = true;
              ejectEffect = Fx.casing1;
@@ -764,7 +764,7 @@ public class DInterUnits {
              reload = 174f;
              x = 0f;
              y = 0f;
-             top = false;
+             top = true;
              mirror = false;
              ejectEffect = Fx.casing1;
              bullet = new ArtilleryBulletType(2.6f, 30){{
@@ -788,9 +788,9 @@ public class DInterUnits {
          immunities.add(DInterStatus.decaling);
          abilities.add(new DecayField(130f, 2f, 130f));
          weapons.add(new Weapon("decay-inter-artillery-decay-weapon"){{
-             reload = 75f;
-             x = 8f;
-             y = -4f;
+             reload = 60f;
+             x = 10f;
+             y = -2f;
              top = false;
              mirror = true;
              ejectEffect = Fx.casing1;
@@ -821,7 +821,7 @@ public class DInterUnits {
              x = 0f;
              y = -7f;
              beamWidth = 1f;
-             top = false;
+             top = true;
              mirror = false;
              ejectEffect = Fx.casing1;
              repairSpeed = 1.5f;

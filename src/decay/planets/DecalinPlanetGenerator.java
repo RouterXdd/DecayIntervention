@@ -427,6 +427,7 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 			state.rules.attackMode = sector.info.attack = true;
 		}else{
 			state.rules.winWave = sector.info.winWave = 10 + 5 * (int)Math.max(sector.threat * 10, 1);
+			state.rules.attackMode = sector.info.attack = false;
 		}
 
 

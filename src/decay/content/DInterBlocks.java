@@ -629,7 +629,7 @@ public class DInterBlocks {
                     progress = PartProgress.reload;
                     moveY = -2.3f;
                     mirror = false;
-                    heatColor = Color.red;
+                    heatColor = Pal.accent;
                 }});
             }};
             researchCost = with(DInterItems.oldmateria, 100, Items.lead, 100, Items.silicon, 100);
@@ -690,6 +690,7 @@ public class DInterBlocks {
                 reload = 5f;
                 range = 260f;
                 recoil = 0f;
+                rotateSpeed = 50f;
                 coolant = consumeCoolant(0.2f);
                 consumePower(6f);
                 outlineColor = DecayPal.decalOutline;
@@ -727,10 +728,11 @@ public class DInterBlocks {
         }};
         confronter = new ContinuousTurret("confronter"){{
             requirements(Category.turret, with(
-                    DInterItems.oldmateria, 120,
+                    DInterItems.oldmateria, 96,
                     Items.silicon, 90,
                     DInterItems.decaygraphite, 75,
-                    DInterItems.timefragment, 58
+                    DInterItems.timefragment, 58,
+                    DInterItems.viliniteAlloy, 12
             ));
             scaledHealth = 130;
             size = 2;
@@ -741,15 +743,16 @@ public class DInterBlocks {
             coolant = consumeCoolant(0.2f);
             consumePower(3.6f);
             outlineColor = DecayPal.decalOutline;
-            shootY = -1.8f;
+            shootY = 0f;
             drawer = new DrawTurret("decay-");
             shootType = new ContinuousFlameBulletType(){{
                 damage = 4f;
                 length = 98f;
-                healPercent = 3f;
+                healPercent = 2f;
                 collidesTeam = true;
                 lifetime = 45f;
-                pierceCap = 0;
+                collideTerrain = true;
+                pierce = false;
                 colors = new Color[]{Color.valueOf("b8ccf2").a(0.35f), Color.valueOf("c0d6ff").a(0.5f), Color.valueOf("ffffff").a(0.6f), Color.valueOf("ffffff"), Color.white};
                 flareColor = Color.valueOf("ffffff");
 
@@ -770,7 +773,7 @@ public class DInterBlocks {
             reload = 26f;
             range = 190f;
             recoil = 0f;
-            shootY = -1.6f;
+            shootY = 0f;
             shoot = new ShootSummon(0f, 0f, 0f, 360f);
             coolant = consumeCoolant(0.45f);
             outlineColor = DecayPal.decalOutline;

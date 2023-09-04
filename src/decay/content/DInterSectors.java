@@ -1,16 +1,21 @@
 package decay.content;
 import mindustry.type.*;
 
+import static decay.content.DInterPlanets.decalin;
+
 public class DInterSectors {
     public static SectorPreset
-    no;
+    oldPlace, sectureBase;
 
     public static void load(){
-        /*forgotLand = new SectorPreset("forgot-land", decalin, 16){{
+        oldPlace = new SectorPreset("old-place", decalin, 16){{
             alwaysUnlocked = true;
-            captureWave = 25;
-            difficulty = 3;
-            startWaveTimeMultiplier = 2.1f;
-        }};*/
+            captureWave = 15;
+            difficulty = 2;
+            startWaveTimeMultiplier = 1.8f;
+        }};
+        sectureBase = new SectorPreset("secture-base", decalin, 95){{
+            difficulty = 4;
+        }};
     }
 }
