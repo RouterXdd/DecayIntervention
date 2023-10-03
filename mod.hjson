@@ -1,8 +1,8 @@
 displayName: "Decay Intervention"
 name: "decay-inter"
-author: "RouterXdd"
+author: "R.O.T."
 main: "decay.DecayMod"
 description: "Remake remake remake"
-version: 1.0
+version: 1.5
 minGameVersion: 145
 java: true

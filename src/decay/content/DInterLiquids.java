@@ -1,16 +1,15 @@
 package decay.content;
 
+import arc.graphics.*;
+import decay.classes.type.*;
 import mindustry.type.*;
 
 public class DInterLiquids {
-    public static Liquid no;
+    public static Liquid ether;
     public static void load() {
 
-        /*deuterium = new Liquid("deuterium", Color.valueOf("A6A3D4")) {{
-            gas = true;
-            temperature = -0.5f;
-        }};
-        gasOxygen = new Liquid("oxygen-gas", Color.valueOf("b8c9df")) {{
+        ether = new EtherLiquid("ether", Color.valueOf("4576c9"));
+        /*gasOxygen = new Liquid("oxygen-gas", Color.valueOf("b8c9df")) {{
             gas = true;
             temperature = 0.5f;
         }};

@@ -25,7 +25,7 @@ public class DInterUnits {
  //time
  hour, clock, timer, day, year, timeAssemblyDrone, pause, resume, timeEntity,
  //core
- decray, melair,
+ decray, melair, powder,
  //decay
  clear, remove, destroy, obliterate, annihilate, decayAssemblyDrone, rush,
  //support
@@ -646,7 +646,7 @@ public class DInterUnits {
                 width = 6f;
                 speed = 4f;
                 lifetime = 34f;
-                damage = 12f;
+                damage = 15f;
                 homingPower = 0.08f;
                 homingRange = 12f;
                 status = DInterStatus.decaling;
@@ -658,7 +658,7 @@ public class DInterUnits {
      melair = new UnitType("melair"){{
          controller = u -> new BuilderAI();
          flying = true;
-         drag = 0.04f;
+         drag = 0.05f;
          accel = 0.16f;
          range = 160f;
          hitSize = 15f;
@@ -691,10 +691,75 @@ public class DInterUnits {
              }};
          }});
      }};
+     powder = new UnitType("powder"){{
+         controller = u -> new BuilderAI();
+         flying = true;
+         drag = 0.05f;
+         accel = 0.2f;
+         range = 140f;
+         hitSize = 16f;
+         speed = 2.85f;
+         health = 670;
+         armor = 3;
+         mineSpeed = 9f;
+         mineTier = 3;
+         buildSpeed = 1.5f;
+         engineSize = 2.7f;
+         engineOffset = 7.2f;
+         engineColor = DecayPal.lightInfect;
+         constructor = UnitEntity::create;
+         immunities.add(DInterStatus.decaling);
+         outlineColor = DecayPal.decalOutline;
+         weapons.add(new Weapon("main-powder-weap"){{
+             reload = 80f;
+             x = 0f;
+             y = -2f;
+             top = false;
+             recoil = 4;
+             bullet = new LaserBoltBulletType(){{
+                 recoil = 4;
+                 height = 20f;
+                 width = 5f;
+                 speed = 7f;
+                 lifetime = 34f;
+                 damage = 60f;
+                 pierce = true;
+                 pierceBuilding = true;
+                 frontColor = backColor = DecayPal.lightInfect;
+                 buildingDamageMultiplier = 0.01f;
+             }};
+         }},
+                 new Weapon("engine-powder"){{
+                     reload = 20f;
+                     x = 0f;
+                     y = -6.6f;
+                     top = false;
+                     continuous = alwaysContinuous = true;
+                     alwaysShootWhenMoving = true;
+                     alwaysShooting = true;
+                     controllable = false;
+                     aiControllable = true;
+                     bullet = new ContinuousFlameBulletType(){{
+                         width = 4f;
+                         lifetime = 20f;
+                         length = -20;
+                         damage = 10f;
+                         pierce = false;
+                         buildingDamageMultiplier = 0.05f;
+                         colors = new Color[]{DecayPal.darkInfect.a(0.35f), DecayPal.infect.a(0.5f), DecayPal.lightInfect.a(0.6f), Color.valueOf("ffffff"), Color.white};
+                         flareColor = DecayPal.infect;
+
+                         lightColor = hitColor = flareColor;
+                         flareInnerLenScl = 0.7f;
+                     }};
+                 }}
+                 );
+     }};
     clear = new UnitType("clear"){{
         speed = 0.6f;
         hitSize = 9f;
-        health = 260;
+        health = 320;
+        armor = 1;
         outlineColor = DecayPal.decalOutline;
         constructor = MechUnit::create;
         immunities.add(DInterStatus.decaling);
@@ -702,7 +767,7 @@ public class DInterUnits {
         weapons.add(new Weapon("decay-inter-decay-weapon"){{
             top = false;
             reload = 22f;
-            x = 5f;
+            x = 5.75f;
             y = 0f;
             ejectEffect = Fx.casing1;
             bullet = new BasicBulletType(2.5f, 9){{
@@ -718,6 +783,7 @@ public class DInterUnits {
          speed = 0.48f;
          hitSize = 16f;
          health = 740;
+         armor = 3;
          outlineColor = DecayPal.decalOutline;
          constructor = MechUnit::create;
          immunities.add(DInterStatus.decaling);
@@ -739,7 +805,7 @@ public class DInterUnits {
          weapons.add(new Weapon("decay-inter-decay-weapon"){{
              reload = 42f;
              x = 3f;
-             y = 3f;
+             y = 1.75f;
              top = true;
              ejectEffect = Fx.casing1;
              bullet = new BasicBulletType(3.5f, 20){{

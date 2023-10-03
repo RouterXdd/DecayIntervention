@@ -14,7 +14,9 @@ public class DecalinWaves {
     public static Seq<SpawnGroup> generate(float difficulty, Rand rand, boolean attack) {
         UnitType[][] species = {
                 {clear, remove, destroy, obliterate, annihilate},
-                {hour, clock, timer, day, year}
+                {hour, clock, timer, day, year},
+                {refate, refate, refate, refate, refate},
+                {pause, resume, resume, resume, resume}
         };
 
         //required progression:

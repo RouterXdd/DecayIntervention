@@ -7,6 +7,7 @@ import arc.math.*;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
+import decay.content.DInterItems;
 import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
@@ -239,6 +240,13 @@ public class RotateDrill extends Block{
                 Draw.rect(dominantItem.fullIcon, dx, dy - 1, s, s);
                 Draw.reset();
                 Draw.rect(dominantItem.fullIcon, dx, dy, s, s);
+            }
+            if(dominantItem == null){
+                float dx = x - size * tilesize/2f, dy = y + size * tilesize/2f, s = iconSmall / 4f;
+                Draw.mixcol(Color.darkGray, 1f);
+                Draw.rect(DInterItems.oldmateria.fullIcon, dx, dy - 1, s, s);
+                Draw.reset();
+                Draw.rect(DInterItems.oldmateria.fullIcon, dx, dy, s, s);
             }
         }
 

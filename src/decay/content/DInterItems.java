@@ -2,12 +2,13 @@ package decay.content;
 
 import arc.graphics.*;
 import arc.struct.*;
+import decay.graphics.DecayPal;
 import mindustry.type.*;
 
 import static mindustry.content.Items.*;
 
 public class DInterItems {
-     public static Item oldmateria, decaygraphite, timefragment, viliniteAlloy, timeEssence, reliteplate, tarite;
+     public static Item oldmateria, decaygraphite, timefragment, viliniteAlloy, timeEssence, reliteplate, infectum, tarite;
 
     public static final Seq<Item> decalinItems = new Seq<>();
     public static void load(){
@@ -41,13 +42,18 @@ public class DInterItems {
             cost = 4.1f;
             healthScaling = 2.1f;
         }};
+        infectum = new Item("infectum", DecayPal.infect){{
+            hardness = 4;
+            cost = 3.8f;
+            healthScaling = 1.75f;
+        }};
         tarite = new Item("tarite", Color.valueOf("7a5c47")){{
             hardness = 4;
             cost = 1.5f;
             healthScaling = 1.46f;
         }};
         decalinItems.addAll(
-                oldmateria, timefragment, tarite, decaygraphite, lead, silicon, graphite, viliniteAlloy, timeEssence, reliteplate
+                oldmateria, timefragment, tarite, decaygraphite, lead, silicon, graphite, viliniteAlloy, timeEssence, reliteplate, infectum
         );
     }
 }

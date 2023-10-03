@@ -26,10 +26,10 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 
 	Block[][] arr =
 			{
-					{Blocks.stone, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decaystone, DInterBlocks.decaystone},
-					{Blocks.stone, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decaystone, DInterBlocks.decayfloor},
-					{DInterBlocks.decaystone, DInterBlocks.decaystone, DInterBlocks.decayfloor, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decayfloor},
-					{DInterBlocks.decayfloor, DInterBlocks.decaystone, DInterBlocks.decaystone, DInterBlocks.decayfloor, DInterBlocks.decayfloor, DInterBlocks.decaystone}
+					{Blocks.stone, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decayfloor, DInterBlocks.decayFloorEmpty, DInterBlocks.decayFloorEmpty},
+					{Blocks.stone, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decayFloorEmpty, DInterBlocks.decayfloor, DInterBlocks.decayFloorEmpty},
+					{DInterBlocks.decayFloorEmpty, DInterBlocks.decayFloorEmpty, DInterBlocks.decayfloor, DInterBlocks.decayfloor, Blocks.stone, DInterBlocks.decayfloor},
+					{DInterBlocks.decayfloor, DInterBlocks.decayFloorEmpty, DInterBlocks.decayFloorEmpty, DInterBlocks.decayfloor, DInterBlocks.decayfloor, Blocks.stone}
 			};
 	{
 		defaultLoadout = DInterLoadouts.basicDrillCore;
@@ -37,11 +37,8 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 
 	ObjectMap<Block, Block> dec = ObjectMap.of(
 			Blocks.stone, Blocks.boulder,
-			DInterBlocks.decayfloor
-	);
-
-	ObjectMap<Block, Block> tars = ObjectMap.of(
-			DInterBlocks.decaystone, DInterBlocks.decayfloor
+			DInterBlocks.decayfloor, DInterBlocks.crystalBoulder,
+			DInterBlocks.decayFloorEmpty, DInterBlocks.crystalBoulder
 	);
 
 	float water = 2f / arr[0].length;
@@ -315,6 +312,32 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 		tech();
 
 		pass((x, y) -> {
+			if(floor == DInterBlocks.decayFloorEmpty){
+				if(Math.abs(0.5f - noise(x - 90, y, 4, 0.7, 80)) > 0.035){
+					floor = DInterBlocks.decayfloor;
+				}else{
+					ore = Blocks.air;
+					boolean all = true;
+					for(Point2 p : Geometry.d4){
+						Tile other = tiles.get(x + p.x, y + p.y);
+						if(other == null || (other.floor() != DInterBlocks.decayFloorEmpty && other.floor() != DInterBlocks.sinFloor)){
+							all = false;
+						}
+					}
+					if(all){
+						floor = DInterBlocks.sinFloor;
+					}
+				}
+			}else if(floor != DInterBlocks.decayfloor && floor.asFloor().hasSurface()){
+				float noise = noise(x + 782, y, 5, 0.75f, 260f, 1f);
+				if(noise > 0.67f && !roomseq.contains(e -> Mathf.within(x, y, e.x, e.y, 14))){
+					if(noise > 0.72f){
+						floor = noise > 0.78f ? DInterBlocks.sinFloor : (floor == Blocks.stone ? DInterBlocks.decayFloorEmpty : DInterBlocks.decayfloor);
+					}else{
+						floor = (floor == DInterBlocks.decayFloorEmpty ? floor : DInterBlocks.decayfloor);
+					}
+				}
+			}
 			//random stuff
 			dec: {
 				for(int i = 0; i < 4; i++){
