@@ -26,17 +26,17 @@ public class DInterFx {
         stroke(e.fin() * 2f);
         circle(e.x, e.y, 4f + e.fout() * 100f);
 
-        Fill.circle(e.x, e.y, e.fin() * 20);
+        Fill.circle(e.x, e.y, e.fin() * 18);
 
         randLenVectors(e.id, 20, 40f * e.fout(), (x, y) -> {
             Fill.circle(e.x + x, e.y + y, e.fin() * 5f);
             Drawf.light(e.x + x, e.y + y, e.fin() * 15f, DecayPal.darkTime, 0.7f);
         });
 
-        color();
+        color(DecayPal.lightTime);
 
-        Fill.circle(e.x, e.y, e.fin() * 10);
-        Drawf.light(e.x, e.y, e.fin() * 20f, DecayPal.darkTime, 0.7f);
+        Fill.circle(e.x, e.y, e.fin() * 8);
+        Drawf.light(e.x, e.y, e.fin() * 18f, DecayPal.darkTime, 0.7f);
     }),
             smallTimeLaserCharge = new Effect(80f, 100f, e -> {
                 color(DecayPal.darkTime);
@@ -102,7 +102,7 @@ public class DInterFx {
                     Fill.circle(e.x + x / 2f, e.y + y / 2f, e.fout());
                 });
 
-                color(DecayPal.darkTime, DecayPal.darkTime, Color.gray, e.fin());
+                color(DecayPal.darkTime, DecayPal.midTime, Color.gray, e.fin());
                 stroke(1.5f * e.fout());
 
                 randLenVectors(e.id + 1, 8, 1f + 23f * e.finpow(), (x, y) -> {

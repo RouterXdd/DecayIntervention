@@ -4,5 +4,5 @@ author: "R.O.T."
 main: "decay.DecayMod"
 description: "Remake remake remake"
 version: 1.5
-minGameVersion: 145
+minGameVersion: 146
 java: true

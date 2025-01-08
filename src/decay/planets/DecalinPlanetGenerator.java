@@ -273,7 +273,7 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 
 		distort(15f, 6f);
 
-		Seq<Block> ores = Seq.with(DInterBlocks.oreMateria);
+		Seq<Block> ores = Seq.with(DInterBlocks.oreMateria, DInterBlocks.oreTellurium);
 		float poles = 1f - Math.abs(sector.tile.v.y);
 		float nmag = 0.5f;
 		float scl = 1f;
@@ -281,6 +281,10 @@ public class DecalinPlanetGenerator extends PlanetGenerator {
 
 		if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.3f*addscl){
 			ores.add(DInterBlocks.oreFragment);
+		}
+
+		if(Simplex.noise3d(seed, 2, 0.72, scl, sector.tile.v.x, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.8f*addscl){
+			ores.add(DInterBlocks.oreInfectum);
 		}
 
 		FloatSeq frequencies = new FloatSeq();

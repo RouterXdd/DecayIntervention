@@ -1,4 +1,3 @@
-//Code getted from dusted lands
 package decay.classes.blocks.distribution;
 
 import arc.*;
@@ -24,6 +23,7 @@ import mindustry.world.meta.*;
 import static mindustry.Vars.*;
 
 public class TransferLink extends Block {
+    //Code taken from dusted lands, but he is DEAD lol
     public float transferTime = 0.4f;
     public float linkRange = 46f;
     public int maxLinks = 5;
@@ -33,7 +33,7 @@ public class TransferLink extends Block {
     public TransferLink(String name) {
         super(name);
         configurable = true;
-        allowConfigInventory = false;
+        allowConfigInventory = squareSprite = false;
         solid = true;
         swapDiagonalPlacement = true;
 
@@ -313,10 +313,12 @@ public class TransferLink extends Block {
 
             Drawf.circles(x, y, linkRange);
              links.each(i -> {
-                 if (links != null);
-                Building link = Vars.world.build(i);
-                 if (link != null);
-                 Drawf.square(link.x, link.y, link.block.size * Vars.tilesize / 2f + 1f, Pal.place);
+                 if (links != null) {
+                     Building link = Vars.world.build(i);
+                     if (link != null) {
+                         Drawf.square(link.x, link.y, link.block.size * Vars.tilesize / 2f + 1f, Pal.place);
+                     }
+                 }
             });
         }
 

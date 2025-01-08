@@ -1,21 +1,16 @@
 package decay.content;
 
-import arc.Core;
 import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
-import decay.classes.blocks.crafting.*;
 import decay.classes.blocks.distribution.*;
-import decay.classes.blocks.environment.*;
 import decay.classes.blocks.power.*;
 import decay.classes.blocks.production.*;
 import decay.classes.blocks.storage.*;
 import decay.classes.blocks.defence.*;
 import decay.classes.bullets.*;
-import decay.classes.meta.*;
 import decay.graphics.*;
 import mindustry.entities.*;
-import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.*;
 import mindustry.entities.pattern.*;
@@ -41,21 +36,22 @@ import multicraft.*;
 
 
 import static mindustry.type.ItemStack.*;
+import static decay.content.DInterItems.*;
 
 public class DInterBlocks {
     public static Block
 
     //environment
-    decayfloor, decayFloorEmpty, decaywall, oreFragment, decaystone, sinFloor, oreMateria, oreInfectum, decaystoneWall, purIce, purIceWall, crystalBoulder,
+    decayfloor, decayFloorEmpty, decaywall, decaystone, sinFloor, decaystoneWall, oreFragment, oreMateria, oreTellurium, oreInfectum, purIce, purIceWall, crystalBoulder,
 
     //defence
     decalwall, decalwalllarge, timewall, timewallLarge, decayBarrier, automaticDoor, viliniteWall, viliniteWallLarge, mirrorWall, mirrorWallLarge,
 
     //crafting
-    repairer, recreator, recycler, changer, vilineForge, decayIncinerator, pressureClet, timeElectric,
+    repairer, recreator, recycler, changer, vilineForge, pressureClet, timeElectric, decayIncinerator,
 
     //production
-    test, oreCrusher, tectonicBomber, underMine, cycleTurbine,
+    driller, oreCrusher, tectonicBomber, cycleTurbine,
 
     //power
     decayconsider, wire, timeDriver, armoredWire,
@@ -75,12 +71,13 @@ public class DInterBlocks {
     //special
     creeperCell;
 
-    public void load() {
+    public static void load() {
         Blocks.incinerator.requirements(Category.crafting, with(Items.copper, 10, Items.lead, 40, Items.graphite, 30));
+        Blocks.solarPanel.requirements(Category.power, with(Items.copper, 15, Items.lead, 5, Items.silicon, 15));
         //environment
         decayfloor = new Floor("decay-floor"){{
             attributes.set(DInterAttributes.decay, 1f);
-            itemDrop = DInterItems.oldmateria;
+            itemDrop = oldmateria;
             playerUnmineable = true;
             status = DInterStatus.decaling;
             statusDuration = 180f;
@@ -88,7 +85,7 @@ public class DInterBlocks {
         }};
         decayFloorEmpty = new Floor("decay-floor-empty"){{
             attributes.set(DInterAttributes.decay, 1f);
-            itemDrop = DInterItems.oldmateria;
+            itemDrop = oldmateria;
             playerUnmineable = true;
             status = DInterStatus.decaling;
             statusDuration = 180f;
@@ -116,9 +113,10 @@ public class DInterBlocks {
         attributes.set(DInterAttributes.decay, 0.4f);
         variants = 3;
         }};
-         oreFragment = new OreBlock(DInterItems.timefragment);
-         oreMateria = new OreBlock(DInterItems.oldmateria);
-         oreInfectum = new OreBlock(DInterItems.infectum);
+        oreFragment = new OreBlock(DInterItems.timefragment);
+        oreMateria = new OreBlock(DInterItems.oldmateria);
+        oreTellurium = new OreBlock(tellurium);
+        oreInfectum = new OreBlock(DInterItems.infectum);
         purIce = new Floor("pur-ice"){{
             dragMultiplier = 0.35f;
             speedMultiplier = 0.9f;
@@ -208,13 +206,13 @@ public class DInterBlocks {
         }};
         //crafting
         repairer = new MultiCrafter("repairer"){{
-            requirements(Category.crafting, with(DInterItems.oldmateria, 80));
+            requirements(Category.crafting, with(DInterItems.oldmateria, 80, tellurium, 45));
             resolvedRecipes = Seq.with(
                     new Recipe(
                             new IOEntry(
                                     Seq.with(ItemStack.with(DInterItems.oldmateria, 3)),
                                     Seq.with(),
-                                    0.7f
+                                    40 / 60f
                             ),
                             new IOEntry(
                                     Seq.with(ItemStack.with(Items.lead, 1)),
@@ -225,7 +223,7 @@ public class DInterBlocks {
                             new IOEntry(
                                     Seq.with(ItemStack.with(DInterItems.oldmateria, 4)),
                                     Seq.with(),
-                                    0.7f
+                                    40 / 60f
                             ),
                             new IOEntry(
                                     Seq.with(ItemStack.with(Items.silicon, 1)),
@@ -236,30 +234,19 @@ public class DInterBlocks {
                             new IOEntry(
                                     Seq.with(ItemStack.with(DInterItems.oldmateria, 4)),
                                     Seq.with(),
-                                    0.7f
+                                    40 / 60f
                             ),
                             new IOEntry(
                                     Seq.with(ItemStack.with(Items.graphite, 1)),
                                     Seq.with()
                             ), 40f
-                    ),
-                    new Recipe(
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(DInterItems.oldmateria, 8)),
-                                    Seq.with(),
-                                    0.7f
-                            ),
-                            new IOEntry(
-                                    Seq.with(ItemStack.with(DInterItems.timefragment, 1)),
-                                    Seq.with()
-                            ), 120f
                     ));
             hasPower = true;
-            menu = "transform";
             size = 2;
+            researchCostMultiplier = 0.2f;
         }};
         recreator = new MultiCrafter("recreator"){{
-            requirements(Category.crafting, with(DInterItems.oldmateria, 130,DInterItems.timefragment, 60, DInterItems.decaygraphite, 35));
+            requirements(Category.crafting, with(DInterItems.oldmateria, 130, DInterItems.timefragment, 60, DInterItems.decaygraphite, 35));
             resolvedRecipes = Seq.with(
                     new Recipe(
                             new IOEntry(
@@ -308,7 +295,6 @@ public class DInterBlocks {
             hasPower = true;
             size = 3;
             itemCapacity = 20;
-
         }};
         recycler = new MultiCrafter("recycler"){{
             requirements(Category.crafting, with(DInterItems.oldmateria, 320,DInterItems.timefragment, 180, DInterItems.decaygraphite, 100, DInterItems.viliniteAlloy, 50, DInterItems.reliteplate, 20));
@@ -375,8 +361,9 @@ public class DInterBlocks {
         changer = new GenericCrafter("changer") {{
             requirements(Category.crafting, with(
                     DInterItems.oldmateria, 60,
-                    Items.graphite, 48,
-                    Items.silicon, 34
+                    Items.graphite, 54,
+                    Items.silicon, 42,
+                    tellurium, 40
             ));
             health = 140;
             craftEffect = Fx.smeltsmoke;
@@ -385,6 +372,7 @@ public class DInterBlocks {
             size = 3;
             itemCapacity = 12;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame());
+            researchCostMultiplier = 0.5f;
 
             consumeItems(with(Items.graphite, 1, DInterItems.oldmateria, 3));
         }};
@@ -405,13 +393,6 @@ public class DInterBlocks {
             consumePower(2.1f);
             consumeItems(with(Items.graphite, 2, Items.silicon, 3, DInterItems.timefragment, 2));
         }};
-        decayIncinerator = new Incinerator("decay-incinerator"){{
-            requirements(Category.crafting, with(DInterItems.oldmateria, 370, Items.silicon, 190, DInterItems.decaygraphite, 90, DInterItems.timefragment, 240));
-            health = 580;
-            size = 3;
-            envEnabled |= Env.space;
-            consumePower(2f);
-        }};
         pressureClet = new GenericCrafter("pressure-clet") {{
             requirements(Category.crafting, with(
                     DInterItems.oldmateria, 170,
@@ -427,20 +408,18 @@ public class DInterBlocks {
             itemCapacity = 20;
             drawer = new DrawMulti(
             new DrawDefault(),
-            new DrawRegion(){{
+            new DrawBlurSpin(){{
                 suffix = ("-spinner");
-                rotateSpeed = 3;
-                spinSprite = true;
+                rotateSpeed = 4;
             }},
-            new DrawRegion(){{
+            new DrawBlurSpin(){{
                 suffix = ("-spinner");
-                rotateSpeed = -3;
-                spinSprite = true;
+                rotateSpeed = -4;
             }});
 
             consumePower(2.8f);
             consumeLiquid(DInterLiquids.ether, 16f / 60f);
-            consumeItems(with(DInterItems.oldmateria, 5, Items.silicon, 4, Items.lead, 6, DInterItems.timefragment, 4));
+            consumeItems(with(tellurium, 4, Items.silicon, 4, Items.lead, 6, DInterItems.timefragment, 4));
         }};
         timeElectric = new GenericCrafter("time-electric") {{
             requirements(Category.crafting, with(
@@ -460,21 +439,31 @@ public class DInterBlocks {
                     new DrawFrames(){{
                         frames = 4;
                         interval = 2f;
+                        sine = false;
                     }},
+                    new DrawRegion("-top"),
                     new DrawFlame(){{
                         flameColor = DecayPal.darkTime;
                         flameRadius = 4f;
                     }});
 
             consumePower(2.8f);
-            consumeItems(with(DInterItems.timefragment, 6, DInterItems.decaygraphite, 2 , DInterItems.viliniteAlloy, 1));
+            consumeItems(with(DInterItems.timefragment, 6, DInterItems.decaygraphite, 2 , infectum, 4));
+        }};
+        decayIncinerator = new Incinerator("decay-incinerator"){{
+            requirements(Category.crafting, with(DInterItems.oldmateria, 370, Items.silicon, 190, DInterItems.decaygraphite, 90, DInterItems.timefragment, 240));
+            health = 580;
+            size = 3;
+            envEnabled |= Env.space;
+            consumePower(2f);
         }};
         //production
-        test = new RotateDrill("driller"){{
+        driller = new RotateDrill("driller"){{
             requirements(Category.production, with(DInterItems.oldmateria, 25));
             size = 2;
             tier = 2;
             drillTime = 190;
+            liquidBoostIntensity = 1;
             researchCost = with(DInterItems.oldmateria, 125);
         }};
         oreCrusher = new BurstDrill("ore-Crusher"){{
@@ -490,23 +479,6 @@ public class DInterBlocks {
             drillTime = 246;
             itemCapacity = 80;
             consumePower(0.75f);
-        }};
-        underMine = new NearCrafter("under-mine") {{
-            requirements(Category.production, with(
-                    DInterItems.oldmateria, 190,
-                    DInterItems.decaygraphite, 55,
-                    Items.silicon, 90,
-                    DInterItems.viliniteAlloy, 70
-            ));
-            health = 210;
-            craftEffect = DInterFx.viliniteCraft;
-            outputItem = new ItemStack(DInterItems.infectum, 1);
-            craftTime = 90f;
-            size = 3;
-            itemCapacity = 12;
-
-            consumePower(3f);
-            consumeItems(with(DInterItems.timefragment, 4));
         }};
         cycleTurbine = new AttributeCrafter("cycle-turbine"){{
             requirements(Category.production, with(DInterItems.oldmateria, 290, Items.silicon, 210, DInterItems.decaygraphite, 110, DInterItems.timefragment, 260, DInterItems.viliniteAlloy, 80));
@@ -537,7 +509,7 @@ public class DInterBlocks {
         decayconsider = new ThermalGenerator("decay-consider"){{
             requirements(Category.power, with(DInterItems.oldmateria, 40));
             attribute = DInterAttributes.decay;
-            powerProduction = 2f / 8.4f;
+            powerProduction = 10f / 60f;
             displayEfficiency = false;
             generateEffect = Fx.turbinegenerate;
             effectChance = 0.04f;
@@ -566,6 +538,7 @@ public class DInterBlocks {
         armoredWire = new WireWall("armored-wire"){{
             requirements(Category.power, with(
                     DInterItems.reliteplate, 2,
+                    tellurium, 4,
                     Items.silicon, 4
             ));
             health = 100;
@@ -585,7 +558,7 @@ public class DInterBlocks {
         }};
         //storage
         coreDry = new DrillCore("core-dry"){{
-            requirements(Category.effect, BuildVisibility.editorOnly, with(DInterItems.oldmateria, 1200, Items.graphite, 600, Items.lead, 800));
+            requirements(Category.effect, BuildVisibility.editorOnly, with(tellurium, 950, DInterItems.oldmateria, 1200, Items.graphite, 600, Items.lead, 800));
             alwaysUnlocked = true;
 
             tier = 2;
@@ -595,6 +568,7 @@ public class DInterBlocks {
             itemCapacity = 3500;
             drillTime = 80;
             size = 3;
+            liquidBoostIntensity = 1;
 
             unitCapModifier = 10;
         }};
@@ -607,6 +581,7 @@ public class DInterBlocks {
             itemCapacity = 6000;
             drillTime = 60;
             size = 4;
+            liquidBoostIntensity = 1;
 
             unitCapModifier = 16;
         }};
@@ -619,6 +594,7 @@ public class DInterBlocks {
             itemCapacity = 10000;
             drillTime = 40;
             size = 5;
+            liquidBoostIntensity = 1;
 
             unitCapModifier = 24;
         }};
@@ -684,7 +660,7 @@ public class DInterBlocks {
         cluster = new ItemTurret("cluster"){{
             requirements(Category.turret, with(
                 DInterItems.oldmateria, 78,
-                Items.lead, 45,
+                tellurium, 50,
                 Items.graphite, 60
                 ));
                 health = 570;
@@ -733,7 +709,7 @@ public class DInterBlocks {
                     heatColor = Pal.accent;
                 }});
             }};
-            researchCost = with(DInterItems.oldmateria, 100, Items.lead, 100, Items.silicon, 100);
+            researchCost = with(DInterItems.oldmateria, 100, tellurium, 100, Items.silicon, 100);
         }};
         starflood = new PowerTurret("starflood"){{
             requirements(Category.turret, with(
@@ -882,6 +858,7 @@ public class DInterBlocks {
                     DInterItems.viliniteAlloy, new BasicBulletType(){{
                         ammoMultiplier = 1f;
                         damage = 0f;
+                        healPercent = 0.01f;
                         collidesTeam = true;
                         spawnUnit = new MissileUnitType("heal-missile"){{
                             speed = 5.6f;
@@ -1027,33 +1004,6 @@ public class DInterBlocks {
                     DInterItems.timefragment, 110
             );
         }};
-        metalBlast = new ModesPowerTurret("metal-blast", metalBlastV2){{
-            requirements(Category.turret, with(
-                    DInterItems.oldmateria, 240,
-                    Items.silicon, 180,
-                    DInterItems.decaygraphite, 75,
-                    DInterItems.timefragment, 145,
-                    DInterItems.reliteplate, 50
-            ));
-            scaledHealth = 195;
-            size = 3;
-            reload = 11f;
-            range = 180f;
-            recoil = 1.2f;
-            coolant = consumeCoolant(0.6f);
-            consumePower(3.35f);
-            outlineColor = DecayPal.decalOutline;
-            drawer = new DrawTurret("decay-");
-            shootType = new BasicBulletType(){{
-                height = 24f;
-                width = 14f;
-                speed = 6f;
-                lifetime = 30f;
-                damage = 4f;
-                sprite = "decay-inter-orbital";
-                ammoMultiplier = 1;
-            }};
-        }};
         metalBlastV2 = new ModesPowerTurret("metal-blast-v2", metalBlast){{
             requirements(Category.turret, BuildVisibility.debugOnly,with(
                     DInterItems.oldmateria, 240,
@@ -1084,6 +1034,34 @@ public class DInterBlocks {
                 pierceBuilding = true;
             }};
         }};
+        metalBlast = new ModesPowerTurret("metal-blast", metalBlastV2){{
+            requirements(Category.turret, with(
+                    DInterItems.oldmateria, 240,
+                    Items.silicon, 180,
+                    DInterItems.decaygraphite, 75,
+                    DInterItems.timefragment, 145,
+                    DInterItems.reliteplate, 50
+            ));
+            scaledHealth = 195;
+            size = 3;
+            reload = 11f;
+            range = 180f;
+            recoil = 1.2f;
+            coolant = consumeCoolant(0.6f);
+            consumePower(3.35f);
+            outlineColor = DecayPal.decalOutline;
+            drawer = new DrawTurret("decay-");
+            shootType = new BasicBulletType(){{
+                height = 24f;
+                width = 14f;
+                speed = 6f;
+                lifetime = 30f;
+                damage = 4f;
+                sprite = "decay-inter-orbital";
+                ammoMultiplier = 1;
+            }};
+        }};
+        ((ModesPowerTurret) metalBlastV2).modeTurret = metalBlast;
         preletT1 = new UpgradeblePowerTurret("prelet-t1"){{
             requirements(Category.turret, BuildVisibility.hidden, with(
                     DInterItems.oldmateria, 120,

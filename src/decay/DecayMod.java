@@ -10,18 +10,18 @@ public class DecayMod extends Mod{
 
     @Override
     public void loadContent(){
-        new DInterTeams().load();
-        new DInterAttributes().load();
-        new DInterItems().load();
-        new DInterLiquids().load();
-        new DInterStatus().load();
-        new DInterWeather().load();
-        new DInterUnits().load();
-        new DInterBlocks().load();
-        new DInterLoadouts().load();
-        new DInterPlanets().load();
-        new DInterSectors().load();
-        new DecalinTechTree().load();
+        DInterTeams.load();
+        DInterAttributes.load();
+        DInterItems.load();
+        DInterLiquids.load();
+        DInterStatus.load();
+        DInterWeather.load();
+        DInterUnits.load();
+        DInterBlocks.load();
+        DInterLoadouts.load();
+        DInterPlanets.load();
+        DInterSectors.load();
+        DecalinTechTree.load();
     }
 
 }

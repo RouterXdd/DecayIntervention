@@ -4,6 +4,7 @@ import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.scene.ui.layout.Table;
 import arc.util.*;
 import decay.content.*;
 import decay.graphics.*;
@@ -13,6 +14,8 @@ import mindustry.entities.abilities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.world.meta.Stat;
+import mindustry.world.meta.StatUnit;
 
 public class StealDecayField extends Ability {
     public float range, damage, percentAmount;
@@ -24,7 +27,16 @@ public class StealDecayField extends Ability {
 
     @Override
     public String localized() {
-        return Core.bundle.format("ability.stealfield", range / 8f, damage, percentAmount);
+        return Core.bundle.format("ability.stealfield");
+    }
+
+    @Override
+    public void addStats(Table t){
+        t.add("[lightgray]" + Stat.range.localized() + ": [white]" + range / 8f + StatUnit.blocks.localized());
+        t.row();
+        t.add("[lightgray]" + Stat.damage.localized() + ": [white]" + damage + StatUnit.perSecond.localized());
+        t.row();
+        t.add("[lightgray]" + Stat.healing.localized() + ": [white]" + percentAmount + StatUnit.percent.localized());
     }
 
     @Override

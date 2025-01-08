@@ -8,7 +8,7 @@ import mindustry.type.*;
 import static mindustry.content.Items.*;
 
 public class DInterItems {
-     public static Item oldmateria, decaygraphite, timefragment, viliniteAlloy, timeEssence, reliteplate, infectum, tarite;
+     public static Item oldmateria, tellurium, decaygraphite, timefragment, viliniteAlloy, timeEssence, reliteplate, infectum, tarite;
 
     public static final Seq<Item> decalinItems = new Seq<>();
     public static void load(){
@@ -17,16 +17,20 @@ public class DInterItems {
             cost = 0.8f;
             healthScaling = 0.86f;
         }};
+        tellurium = new Item("tellurium", Color.valueOf("735c8a")){{
+            hardness = 2;
+            cost = 1.5f;
+        }};
         decaygraphite = new Item("decay-graphite", Color.valueOf("2d2d2d")){{
             hardness = 2;
             cost = 1.65f;
         }};
-        timefragment = new Item("time-fragment", Color.valueOf("b8ccf2")){{
+        timefragment = new Item("time-fragment", Color.valueOf("89b4b6")){{
             hardness = 3;
             cost = 1.8f;
             healthScaling = 1.24f;
         }};
-        viliniteAlloy = new Item("vilinite-alloy", Color.valueOf("1a7000")){{
+        viliniteAlloy = new Item("vilinite-alloy", Color.valueOf("37861f")){{
             hardness = 4;
             cost = 2.4f;
         }};
@@ -37,7 +41,7 @@ public class DInterItems {
             cost = 3.6f;
             healthScaling = 1.6f;
         }};
-        reliteplate = new Item("relite-plate", Color.valueOf("3c3c3c")){{
+        reliteplate = new Item("relite-plate", Color.valueOf("3b394d")){{
             hardness = 5;
             cost = 4.1f;
             healthScaling = 2.1f;
@@ -53,7 +57,7 @@ public class DInterItems {
             healthScaling = 1.46f;
         }};
         decalinItems.addAll(
-                oldmateria, timefragment, tarite, decaygraphite, lead, silicon, graphite, viliniteAlloy, timeEssence, reliteplate, infectum
+                oldmateria, tellurium, timefragment, tarite, decaygraphite, lead, silicon, graphite, viliniteAlloy, timeEssence, reliteplate, infectum
         );
     }
 }

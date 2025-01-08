@@ -47,7 +47,7 @@ public class DInterStatus {
        anotherTimeline = new StatusEffect("another-timeline"){{
            color = DecayPal.darkTime;
            damageMultiplier = 0f;
-           healthMultiplier = 10000000f;
+           healthMultiplier = Float.MAX_VALUE;
            effect = DInterFx.changeMode;
        }};
        suppression = new StatusEffect("suppression"){{

@@ -8,7 +8,7 @@ import static mindustry.content.TechTree.*;
 import static decay.content.DInterSectors.*;
 
 public class DecalinTechTree {
-    public void load(){
+    public static void load(){
         DInterPlanets.decalin.techTree = nodeRoot("decalin", DInterPlanets.decalin, true, () -> {
             nodeProduce(DInterItems.oldmateria, () -> {
                 nodeProduce(DInterItems.timefragment, () -> {
@@ -26,12 +26,15 @@ public class DecalinTechTree {
                         });
                     });
                 });
-                nodeProduce(Items.lead, () -> {
+                nodeProduce(Items.lead, () ->{
+
+                });
+                nodeProduce(DInterItems.tellurium, () -> {
                 });
             });
             node(DInterBlocks.repairer, Seq.with(new Produce(DInterItems.oldmateria)), () -> {
                 node(DInterBlocks.changer, Seq.with(new SectorComplete(oldPlace)),() -> {
-                    node(DInterBlocks.recreator, () -> {
+                    node(DInterBlocks.recreator, Seq.with(new DInterObjectives.SoonTM()), () -> {
                         node(DInterBlocks.pressureClet/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
                             node(DInterBlocks.timeElectric, () -> {
                             });
@@ -46,7 +49,7 @@ public class DecalinTechTree {
                 });
             });
             node(DInterBlocks.decalwall, Seq.with(new Produce(DInterItems.oldmateria)), () -> {
-                node(DInterBlocks.timewall, Seq.with(new Produce(DInterItems.timefragment)), () -> {
+                node(DInterBlocks.timewall, Seq.with(new Produce(DInterItems.timefragment), new DInterObjectives.SoonTM()), () -> {
                     node(DInterBlocks.decayBarrier/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
                     });
                     node(DInterBlocks.timewallLarge, () -> {
@@ -66,7 +69,7 @@ public class DecalinTechTree {
                 });
             });
             node(DInterBlocks.cluster, () -> {
-                node(DInterBlocks.starflood, Seq.with(new Produce(DInterItems.timefragment)), () -> {
+                node(DInterBlocks.starflood, Seq.with(new Produce(DInterItems.timefragment), new DInterObjectives.SoonTM()), () -> {
                     node(DInterBlocks.interleet, Seq.with(new SectorComplete(oldPlace)), () -> {
                         node(DInterBlocks.crystalFer, () -> {
                             node(DInterBlocks.rollIn, () -> {
@@ -89,7 +92,7 @@ public class DecalinTechTree {
                 });
             });
             node(DInterBlocks.decayconsider, () -> {
-                node(DInterBlocks.timeDriver/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
+                node(DInterBlocks.timeDriver, Seq.with(new DInterObjectives.SoonTM()),() -> {
                 });
                 node(DInterBlocks.wire, () -> {
                     node(DInterBlocks.armoredWire, () -> {
@@ -100,13 +103,13 @@ public class DecalinTechTree {
                 node(DInterBlocks.decaySorter, () -> {
                 });
                 node(DInterBlocks.lightLink, () -> {
-                    node(DInterBlocks.mediumLink, Seq.with(new SectorComplete(oldPlace)),() -> {
+                    node(DInterBlocks.mediumLink, Seq.with(new SectorComplete(sectureBase), new DInterObjectives.SoonTM()),() -> {
                         node(DInterBlocks.heavyLink/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
                         });
                     });
                 });
             });
-            node(DInterBlocks.decayFactory, Seq.with(new SectorComplete(oldPlace)),() -> {
+            node(DInterBlocks.decayFactory, Seq.with(new OnSector(sectureBase), new DInterObjectives.SoonTM()),() -> {
                 node(DInterBlocks.decayModule, () -> {
                     node(DInterBlocks.decayModuleT2, () -> {
                     });
@@ -144,15 +147,15 @@ public class DecalinTechTree {
                     });
                 });
             });
-            node(DInterBlocks.test, () -> {
-                node(DInterBlocks.oreCrusher, () -> {
+            node(DInterBlocks.driller, () -> {
+                node(DInterBlocks.oreCrusher, Seq.with(new DInterObjectives.SoonTM()),() -> {
                     node(DInterBlocks.tectonicBomber/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
 
                     });
                 });
             });
             node(oldPlace, () -> {
-               node(sectureBase, Seq.with(new SectorComplete(oldPlace)),() -> {
+               node(sectureBase, Seq.with(new SectorComplete(oldPlace), new DInterObjectives.SoonTM()),() -> {
                      /*node(repairTerminal, Seq.with(new SectorComplete(sectureBase)),() -> {
                         node(junkyard, Seq.with(new SectorComplete(repairTerminal)),() -> {
 
@@ -173,7 +176,7 @@ public class DecalinTechTree {
             node(DInterBlocks.coreDry, () -> {
                 node(DInterBlocks.coreDecay/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
                 });
-                node(DInterBlocks.werehouse/*, Seq.with(new SectorComplete(junkyard))*/,() -> {
+                node(DInterBlocks.werehouse, Seq.with(new DInterObjectives.SoonTM()),() -> {
                 });
             });
         });

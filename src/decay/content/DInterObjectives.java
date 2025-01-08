@@ -6,6 +6,20 @@ import mindustry.ctype.*;
 import static mindustry.game.Objectives.*;
 
 public class DInterObjectives {
+    public static class SoonTM implements Objective {
+        public UnlockableContent content;
+
+        public SoonTM() {}
+        @Override
+        public boolean complete() {
+            return false;
+        }
+
+        @Override
+        public String display() {
+            return Core.bundle.format("requirement.denied");
+        }
+    }
     public static class ActivateTimeMachine implements Objective {
         public UnlockableContent content;
 

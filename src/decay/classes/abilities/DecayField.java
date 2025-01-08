@@ -3,6 +3,7 @@ package decay.classes.abilities;
 import arc.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.scene.ui.layout.Table;
 import arc.util.Time;
 import decay.content.*;
 import decay.graphics.*;
@@ -10,10 +11,13 @@ import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.meta.Stat;
+import mindustry.world.meta.StatUnit;
 
 import static mindustry.Vars.*;
 
 public class DecayField extends Ability {
+    public float fieldRegenDivine = 2;
     public float range, damage, maxRange;
     public DecayField( float range, float damage, float maxRange) {
         this.range = range;
@@ -23,7 +27,13 @@ public class DecayField extends Ability {
 
     @Override
     public String localized() {
-        return Core.bundle.format("ability.decayfield", range / 8f, damage);
+        return Core.bundle.format("ability.decayfield");
+    }
+    @Override
+    public void addStats(Table t){
+        t.add("[lightgray]" + Stat.range.localized() + ": [white]" + range / 8f + StatUnit.blocks.localized());
+        t.row();
+        t.add("[lightgray]" + Stat.damage.localized() + ": [white]" + damage + StatUnit.perSecond.localized());
     }
 
     @Override
@@ -35,9 +45,9 @@ public class DecayField extends Ability {
             other.damageContinuousPierce(damage);
         });
         if (unit.hasEffect(DInterStatus.suppression) && range > 0){
-            range -= Time.delta / 2;
-        } else {
-            range += Time.delta / 2;
+            range -= Time.delta / fieldRegenDivine;
+        } else if (range < maxRange){
+            range += Time.delta / fieldRegenDivine;
         }
     }
     @Override

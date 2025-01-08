@@ -39,7 +39,10 @@ public class DInterPlanets {
                 r.waveTeam = DInterTeams.decayed;
                 r.showSpawns = true;
                 r.fog = false;
+                r.teams.get(DInterTeams.decayed).buildSpeedMultiplier = 0.6f;
                 r.onlyDepositCore = false;
+                r.bannedBlocks.addAll(Blocks.sporePress, Blocks.shockMine, Blocks.illuminator);
+                r.hideBannedBlocks = true;
                 Weather.WeatherEntry abuse = new Weather.WeatherEntry(DInterWeather.timeBackground);
                 abuse.always = true;
                 r.weather.add(abuse);

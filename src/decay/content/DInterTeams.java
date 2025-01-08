@@ -5,11 +5,10 @@ import mindustry.game.Team;
 import mindustry.graphics.Pal;
 
 public class DInterTeams {
-    public static Team decayed, yellow, neoplastic;
+    public static Team decayed, neoplastic;
 
     public static void load() {
-        decayed = newTeam(12, "decayed", Color.valueOf("333333"));
-        yellow = newTeam(15, "yellow", Color.valueOf("ccd70c"));
+        decayed = newTeam(12, "decayed", Color.valueOf("124452"));
         neoplastic = newTeam(6, "neoplastic", Pal.neoplasm1);
     }
 
